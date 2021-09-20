@@ -1,0 +1,166 @@
+
+body{
+    background: linear-gradient(25deg, rgb(203, 203, 206) 0%, rgb(142, 142, 230) 35%, rgba(0,212,255,1) 100%);
+
+}
+.title{
+    color: black;
+    font-size: 300%;
+    text-align: center;
+
+}
+nav{
+    display: flex;
+    justify-content: center;
+}
+input{
+    background-color: rgb(253, 250, 222);
+    border-radius: 10px;
+    width: 20%;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+.input-note{
+    width: 80%;
+    height: 30px;
+}
+::placeholder{
+    color:darkred;
+}
+.note{
+    display: flex;
+    flex-direction: column;
+}
+
+.savebutton{
+    width: 10%;
+    display: inline-block;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: 2px solid #007bff;
+    margin: 1px .5rem 10px 0px;
+    opacity: 0.7;
+}
+
+.savebutton:hover, .undobutton:hover{
+    opacity: 1.0;
+}
+
+.editbutton{
+    width: 25%;
+    display: inline-block;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    background: green;
+    color: white;
+    border: 2px solid #007bff;
+    margin: 1px .5rem 10px 50px;
+}
+
+.undobutton{
+    width: 10%;
+    display: inline-block;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    background: orange;
+    color: white;
+    border: 2px solid orange;
+    margin: 1px .5rem 10px 250px;
+    opacity: 0.7;
+}
+
+.item-container{
+    display:flex;
+    margin-top: 5%;
+}
+
+.notesWrapper{
+    border: 3px solid rgb(253, 196, 91);
+    width: 400px;
+    height: auto;
+    display: table-column;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    margin-right: 10px;
+    border-radius: 20px;
+    font-size: 30px;
+    margin-top: 3px;
+    padding-bottom: 1%;
+}
+
+p{
+    text-align: center;
+}
+
+div.buttons{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+h2{
+    color: rgb(255, 102, 0);
+}
+
+.dates{
+    display: none;
+    flex-direction: column;
+}
+
+.creation, .modified{
+    text-align: left;
+    margin-top: 0;
+}
+
+.view, .edit,.remove{
+    width: 25%;
+    height: 30px;
+    font-size: 0.8rem;
+    padding-left: 0.5%;
+    border-width: 0.1rem;
+    border-radius: 5px;
+    font-size: 10px;
+}
+.view{
+    background-color: lightyellow;
+    border: 2px solid lightyellow;
+}
+.edit{
+    background-color: rgb(187, 255, 187);
+    border: 2px solid rgb(187, 255, 187);
+}
+
+.remove{
+    background-color: red;
+    border: 2px solid red;
+}
+.cancelbutton{
+    display: none;
+    width: 20%;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    background: gray;
+    color: white;
+    border: 2px solid #007bff;
+    margin: 1px .5rem 10px 50px;
+}
+.edit:hover, .view:hover,.remove:hover{
+    background: darkred;
+    cursor: pointer;
+}
