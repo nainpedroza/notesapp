@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 class="title">Notes App</h1>
+    <nav><input type="text" name="" id="findNote" placeholder="Find a note..."></nav>
+    <div class="note">
+        <h2>Start writing notes!</h2>
+        <div class="dates"><p class="creation"></p> <p class="modified"></p>
+        </div>
+        <input class="input-note" name="notearea" placeholder="Start writing your notes"></input>
+        <div class="buttonsnotes">
+            <button class="undobutton" title="Undo the action ctrl+z">Undo</button>
+            <button class="savebutton" title="Save the note">Save</button>
+            <button class="cancelbutton">Cancel</button>
+            <button class="editbutton">Save the changes!</button>
+        </div>
+    </div>
+
+    <div class="item-container"></div>
+    <template id="notes">
+        <li class="notesWrapper" draggable="true">
+            <div class="buttons">
+                <button class="view">View</button>
+                <button class="edit">Edit</button>
+                <button class="remove">Remove</button>
+            </div>
+            <p></p>
+        </li>
+    </template>
+    <script src="script.js"></script>
+</body>
+</html>
