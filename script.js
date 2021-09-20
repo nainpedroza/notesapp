@@ -122,7 +122,7 @@ function Model () {
       months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
       days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
       d = days[d.getDay()]+' '+months[d.getMonth()]+' '+d.getDate()+' '+d.getFullYear()+' '+hours+':'+minutes+ampm;
-       this.createDate = d
+      this.createDate = d
       this.lastMDate = d
       this.note = note
       this.active = true
@@ -130,7 +130,7 @@ function Model () {
     }
   }
   class ModelFactory {
-    constructor() { }
+    constructor() {}
     createNote(note) {
       return new ModelNote(note);
     }
@@ -309,8 +309,6 @@ function View (pubsub) {
   const creationDP = document.querySelector('.creation')
   const lastMDP = document.querySelector('.modified')
   const undoButton = document.querySelector('.undobutton')
-
-
   function notifyChangeBox () {
     const filter = searchNote.value
     pubsub.publish('newText', filter)
@@ -348,7 +346,6 @@ function View (pubsub) {
         break
     }
   }
-
   function editConf (note, dates, id) {
     searchNote.style.display = 'none'
     datesInfo.style.display = 'inline'
@@ -376,7 +373,6 @@ function View (pubsub) {
       editNote(id).saveEdition()
     }
   }
-
   function mainConf (activeNotes) {
     searchNote.style.display = 'inline'
     datesInfo.style.display = 'none'
