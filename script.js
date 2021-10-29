@@ -46,10 +46,12 @@ var random_margin = ["3px"];
 var random_colors = ["#c2ff3d","#ff3de8","#3dc2ff","#04e022","#bc83e6","#ebb328"];
 var random_degree = ["rotate(3deg)", "rotate(1deg)", "rotate(-1deg)", "rotate(-3deg)", "rotate(-5deg)", "rotate(-8deg)"];
 //Manipulate content
+const storedInfo = 'info'
+const storedCommands = 'commands'
 function Model () {
-  function getData (index = '0', active = true) {
-    if (index === '0' && active) {
-      const strData = localStorage.getItem('0')
+  function getData (index = storedInfo, active = true) {
+    if (index === storedInfo && active) {
+      const strData = localStorage.getItem(storedInfo)
       const data = JSON.parse(strData)
       const activeNotes = {}
       for (const i in data) {
@@ -58,39 +60,39 @@ function Model () {
         }
       }
       return activeNotes
-    } else if (index === '0' && !active) {
-      const strData = localStorage.getItem('0')
+    } else if (index === storedInfo && !active) {
+      const strData = localStorage.getItem(storedInfo)
       const data = JSON.parse(strData)
       return data
     }
-    const strData = localStorage.getItem('1')
+    const strData = localStorage.getItem(storedCommands)
     const commands = JSON.parse(strData)
     return commands
   }
   function storeSettings (inverse) {
-    const strCommands = localStorage.getItem('1') || '[]'
+    const strCommands = localStorage.getItem(storedCommands) || '[]'
     const commands = JSON.parse(strCommands)
     commands.push(inverse)
     const newCommands = JSON.stringify(commands)
-    localStorage.setItem('1', newCommands)
+    localStorage.setItem(storedCommands, newCommands)
   }
   function saveNoteInfo (obj) {
-    const strData = localStorage.getItem('0')
+    const strData = localStorage.getItem(storedInfo)
     let data = JSON.parse(strData)
     if (data) {
       data.push(obj)
     } else {
       data = [obj]
     }
-    localStorage.setItem('0', JSON.stringify(data))
+    localStorage.setItem(storedInfo, JSON.stringify(data))
   }
-  function updateData (id, filter, index = '0') {
-    if (index === '1') {
+  function updateData (id, filter, index = storedInfo) {
+    if (index === storedCommands) {
       const commands = filter.commands
-      localStorage.setItem('1', JSON.stringify(commands))
+      localStorage.setItem(storedCommands, JSON.stringify(commands))
       return
     }
-    const strData = localStorage.getItem('0')
+    const strData = localStorage.getItem(storedInfo)
     let data = JSON.parse(strData)
     let updNote = [false, '']
     if ('note' in filter) {
@@ -106,11 +108,11 @@ function Model () {
         data[id][key] = filter[key]
       }
     }
-    localStorage.setItem('0', JSON.stringify(data))
+    localStorage.setItem(storedInfo, JSON.stringify(data))
     return updNote
   }
   function updateNotes (data) {
-    localStorage.setItem('0', JSON.stringify(data))
+    localStorage.setItem(storedInfo, JSON.stringify(data))
   }
   
   class ModelNote {
@@ -138,8 +140,8 @@ function Model () {
   const noteFactory = new ModelFactory()
 
   function undo () {
-    const commands = getData('1')
-    const data = getData('0', false)
+    const commands = getData(storedCommands)
+    const data = getData(storedInfo, false)
     if (!data) {
       return
     }
@@ -150,20 +152,20 @@ function Model () {
         case 'updateNote':
           const note = reverseCommand.text
           updateNote(note, id, true)
-          updateData('-1', { commands: commands }, '1')
+          updateData('-1', { commands: commands }, storedCommands)
           break
         case 'saveNote':
           data.pop()
-          updateData('-1', { data: data }, '0')
-          updateData('-1', { commands: commands }, '1')
+          updateData('-1', { data: data }, storedInfo)
+          updateData('-1', { commands: commands }, storedCommands)
           break
         case 'deleteNote':
           updateData(id, { active: true })
-          updateData('-1', { commands: commands }, '1')
+          updateData('-1', { commands: commands }, storedCommands)
           break
         case 'swap':
           swapNotes(reverseCommand.start, reverseCommand.end, true)
-          updateData('-1', { commands: commands }, '1')
+          updateData('-1', { commands: commands }, storedCommands)
           break
         default:
           break
@@ -202,7 +204,7 @@ function Model () {
 
   function getDate (id, opt) {
     let d
-    const data = getData('0', true)
+    const data = getData(storedInfo, true)
     if (opt === 'c') {
       d = data[id].createDate
     } else if (opt === 'm') {
@@ -212,7 +214,7 @@ function Model () {
   }
 
   function filterNotes (filter) {
-    const data = getData('0', false)
+    const data = getData(storedInfo, false)
     for (const i in data) {
       if (data[i].note.includes(filter)) {
         data[i].passFilter = true
@@ -224,7 +226,7 @@ function Model () {
   }
 
   function swapNotes (startId, endId, reversing = false) {
-    const data = getData('0', false)
+    const data = getData(storedInfo, false)
     const keepingNote = data[startId]
     data[startId] = data[endId]
     data[endId] = keepingNote
@@ -503,7 +505,7 @@ function View (pubsub) {
 
 // Retrieve data from MODEL
 function getDataModelHandler(topic, p){
-    p.data = model.getNotes('0', true)
+    p.data = model.getNotes(storedInfo, true)
 }
 pubsub.subscribe('getDataPresenter',getDataModelHandler)  
 const model = Model()
